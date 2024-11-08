@@ -1,0 +1,27 @@
+package segundoparcial.seg_parcial.controller;
+import segundoparcial.seg_parcial.entities.Employee;
+import segundoparcial.seg_parcial.services.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+@RequestMapping("/api/employees")
+public class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @PostMapping
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+        Employee createdEmployee = employeeService.createEmployee(employee);
+        return ResponseEntity.ok(createdEmployee);
+    }
+
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<Employee> findEmployeeWithSalary(@PathVariable Integer employeeId) {
+        Employee employee = employeeService.findEmployeeWithSalary(employeeId);
+        return ResponseEntity.ok(employee);
+    }
+}
